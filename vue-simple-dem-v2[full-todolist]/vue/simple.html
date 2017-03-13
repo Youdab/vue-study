@@ -1,0 +1,50 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<body>
+<div id="app">
+  <p>todo-list</p>
+</div>
+
+    <div id="wrap" class="wrap container">
+        <div class="row">
+            <div class="col-sm-10"><input type="text" class="form-control" v-model="val" /> </div>
+            <div class="col-sm-2">
+        <button type="button" v-on:click="add" class="btn btn-primary" >add</button> </div>
+        </div>
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>cont</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for=" item in list">
+                    <td>{{item.id}}</td>
+                    <td>{{item.cont}}</td>
+                    <td><button type="button" v-on:click='del(item)' class="btn btn-primary" >del</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var lastIndex = 2, vModel = {
+            list: [{ id: 1, cont: 'one' },{ id: 2, cont: 'two' }],
+            val: null
+        };
+        new Vue({
+            data: vModel,
+            el: '#wrap',
+            methods:{
+                add:function(){
+                    this.list.push({ id: lastIndex++, cont: this.val});
+                },
+                del:function(item){
+                    let index = this.list.indexOf(item);
+                    this.list.splice(index,1);
+                }
+            }
+        });
+    </script>
+</body>
